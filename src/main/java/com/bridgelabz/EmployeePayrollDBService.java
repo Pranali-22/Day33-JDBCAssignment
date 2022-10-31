@@ -67,11 +67,10 @@ public class EmployeePayrollDBService {
 
 
     //SQL injection
-    // Statement -- interface - calls DDL statments and execute it  - UC3
+    // Statement -- interface - calls DDL statements and execute it  - UC3
     private int updateEmployeeDataUsingStatement(String name, double salary){
-        //String sql for normal statment.
+        //String sql for normal statement.
         String sqlStatement = String.format("Update employee_payroll set basicPay = %.2f where empName='%s';",salary,name);
-
 
         try(Connection connection = getConnection()){
             Statement statement = connection.createStatement();
@@ -82,19 +81,6 @@ public class EmployeePayrollDBService {
         }
         return 0;
     }
-
-
-
-
-    // PepareStatment for UC4
-
-
-
-
-
-
-
-
 
     // PepareStatment
     private void prepareStatementForEmployeeData(){

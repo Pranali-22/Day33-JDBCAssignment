@@ -78,6 +78,31 @@ public class EmployeePayrollService {
 		return this.employeePayrollList;
 	}
 
+	//UC3 - update salary using statement
+
+	private EmployeePayrollData getEmployeePayrollData(String name){
+		return this.employeePayrollList.stream()
+				.filter(EmployeePayrollDataItem->EmployeePayrollDataItem.employeeName.equals(name))
+				.findFirst().orElse(null);
+	}
+
+	public void  updateEmployeeSalary(String name, double salary){
+		int result = employeePayrollDBService.updateEmployeeSalary(name, salary);
+
+		if(result == 0)
+			return;
+
+		EmployeePayrollData employeePayrollData = this.getEmployeePayrollData(name);
+		if(employeePayrollData != null)
+			employeePayrollData.employeeSalary = salary;
+	}
+
+	public boolean checkEmployeePayrollInSyncWithDB(String name){
+		List<EmployeePayrollData> employeePayrollDataList = employeePayrollDBService.getEmployeePayrollData(name);
+		return  employeePayrollDataList.get(0).equals(getEmployeePayrollData(name));
+	}
+
+
 
 	public static void main(String[] args) {
 		
