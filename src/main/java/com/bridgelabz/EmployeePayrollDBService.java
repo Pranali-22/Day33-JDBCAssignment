@@ -59,15 +59,10 @@ public class EmployeePayrollDBService {
 
     }
 
-
     public int updateEmployeeSalary(String name, double salary){
-
         return this.updateEmployeeDataUsingStatement(name, salary);
     }
 
-
-    //SQL injection
-    // Statement -- interface - calls DDL statements and execute it  - UC3
     private int updateEmployeeDataUsingStatement(String name, double salary){
         //String sql for normal statement.
         String sqlStatement = String.format("Update employee_payroll set basicPay = %.2f where empName='%s';",salary,name);
@@ -93,7 +88,6 @@ public class EmployeePayrollDBService {
             e.printStackTrace();
         }
     }
-
 
     private List<EmployeePayrollData> getEmployeePayrollData(ResultSet resultSet){
         List<EmployeePayrollData> employeePayrollDataList = new ArrayList<>();
@@ -130,5 +124,17 @@ public class EmployeePayrollDBService {
         return  employeePayrollDataList;
     }
 
+    //Prepared statement to get employee data
+    private void preparedStatementToGetEmployeeData() {
+
+        try {
+            Connection connection = this.getConnection();
+            String sqlStatement = "SELECT * FROM employee JOIN employee_payroll ON employee.employee_id = employee_payroll.employee_id WHERE employee_name = ?;";
+            employeePayrollDataStatement = connection.prepareStatement(sqlStatement);
+        }
+        catch(SQLException exception) {
+            throw new EmployeePayrollException(EmployeePayrollException.ExceptionType.DATABASE_EXCEPTION, exception.getMessage());
+        }
+    }
 
 }

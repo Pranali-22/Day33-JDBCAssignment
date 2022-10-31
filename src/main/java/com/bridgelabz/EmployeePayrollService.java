@@ -102,8 +102,6 @@ public class EmployeePayrollService {
 		return  employeePayrollDataList.get(0).equals(getEmployeePayrollData(name));
 	}
 
-
-
 	public static void main(String[] args) {
 		
 		System.out.println("---------- Welcome To Employee Payroll Application ----------\n");

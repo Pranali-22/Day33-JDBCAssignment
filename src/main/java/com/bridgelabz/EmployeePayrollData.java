@@ -1,5 +1,4 @@
 package com.bridgelabz;
-
 import java.time.LocalDate;
 
 public class EmployeePayrollData {
